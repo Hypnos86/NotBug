@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+{%load static%}
+{%load bootstrap%}
+{%block title%}Strona główna{%endblock%}
+{%block content%}
+<div class="container">
+    <div class="mb-4">
+        <a href="{%url 'main:add_post'%}" class="btn btn-warning">Dodaj nowy post</a>
+    </div>
+    <ul class="list-group">
+        {%for post in posts%}
+        <li class="list-group-item list-group-item-action">
+            <a class="text-decoration-none" href="{%url 'main:read_post' post.id%}">{{post.title}} -
+                dodane ({{post.add_date}}&nbsp;r.)</a>
+            {%if post.author == user %}
+            <a href="{%url 'main:edit_post' post.id%}" class="btn btn-info ">Edytuj</a>
+            {%endif%}
+        </li>
+        {%endfor%}
+
+    </ul>
+</div>
+{%endblock%}

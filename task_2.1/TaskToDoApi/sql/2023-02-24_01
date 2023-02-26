@@ -1,0 +1,7 @@
+CREATE TABLE todolist (
+	task_id INTEGER PRIMARY KEY AUTOINCREMENT,
+   	tasks TEXT NOT NULL,
+             isDone bool DEFAULT 0,	
+             add_date datetime NOT NULL          
+)
+

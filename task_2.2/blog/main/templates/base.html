@@ -1,0 +1,59 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="{%static 'main/bootstrap/css/bootstrap.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap.rtl.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap.rtl.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-grid.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-grid.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-grid.rtl.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-grid.rtl.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-reboot.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-reboot.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-reboot.rtl.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-reboot.rtl.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-utilities.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-utilities.min.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-utilities.rtl.css'%}" rel="stylesheet">
+    <link href="{%static 'main/bootstrap/css/bootstrap-utilities.rtl.min.css'%}" rel="stylesheet">
+    <title>{%block title%} Twój Blog {%endblock%}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {%if user.is_authenticated%}
+    <span class="mx-2" title="Użytkownik"><i>{{user.username}}</i></span>
+    {%endif%}
+    {%if user.is_authenticated%}
+    <a class="navbar-brand" href="{%url 'main:home'%}">Home</a>
+    {%else%}
+    <a class="navbar-brand" href="{%url 'main:welcome'%}">Home</a>
+    {%endif%}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {%if user.is_authenticated%}
+            <li class="nav-item active">
+                <a class="nav-link" href="{%url 'logout'%}">Wyloguj</a>
+            </li>
+            {%else%}
+            <li class="nav-item active">
+                <a class="nav-link" href="{%url 'login'%}">Logowanie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'main:register'%}">Rejestracja</a>
+            </li>
+            {%endif%}
+        </ul>
+    </div>
+</nav>
+<div class="mx-3 mt-5">
+    {%block content%}
+
+    {%endblock%}
+</div>
+</body>
+</html>

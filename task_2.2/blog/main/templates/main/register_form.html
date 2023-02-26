@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{%load static%}
+{%load bootstrap%}
+{%block title%}Rejestracja użytkownika{%endblock%}
+{%block content%}
+<form class="form-group" method="POST">
+    {%csrf_token%}
+    <div>{{form|bootstrap}}</div>
+    <button type="submit">Utwóż konto</button>
+</form>
+{%endblock%}

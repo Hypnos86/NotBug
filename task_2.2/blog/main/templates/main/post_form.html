@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%load static%}
+{%load bootstrap%}
+{%block title%}Strona główna{%endblock%}
+{%block content%}
+<div class="container">
+    {%if new%}
+    <h5>Dodaj nowy post</h5>
+    {%else%}
+    <h5>Edytuj post</h5>
+    {%endif%}
+
+    <form method="POST">
+        {%csrf_token%}
+        <div class="my-2">{{form.title|bootstrap}}</div>
+        <div class="my-2">{{form.content|bootstrap}}</div>
+        <button type="submit" class="btn btn-outline-primary mt-4">Zapisz</button>
+    </form>
+</div>
+{%endblock%}
