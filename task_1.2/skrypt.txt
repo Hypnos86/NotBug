@@ -1,51 +1,34 @@
+import { of, from, mergeMap, filter, map, reduce, count } from 'rxjs';
 let persons = [
-    {
-     id: 1,
-     name: "Jan Kowalski"
-    }, {
-     id: 2,
-     name: "John Doe"
-    }, {
-     id: 3,
-     name: "Jarek Kaczka"
-     }
-]
-
-let ages = [
-    {
-    person: 1,
-    age: 18
-}, {
-    person: 2,
-    age: 24
-}, {
-    person: 3,
-    age: 666
-    }
-]
-    
-let locations = [
-    {
-    person: 1,
-    country: "Poland"
-}, {
-    person: 3,
-    country: "Poland"
-    }, {
-    person: 1,
-    country: "USA"
-}
-]
-
-var sum = 0
-var counter = 0
-for(i = 0; i < persons.length; i++){
-   var personAge = ages.filter(function(element){ return element.person == persons[i].id})[0].age
-    //console.log(personAge)
-    var personCountries = locations.filter(function(element){ return element.person == persons[i].id})
-    if (personCountries.filter(function(element){return element.country == 'Poland'}).length > 0){
-        sum += personAge
-        counter ++
-    }
-}
-console.log(sum/counter)
+  {id: 1,name: "Jan Kowalski"},
+  {id: 2,name: "John Doe"},
+  {id: 3,name: "Jarek Kaczka" }
+  ]
+  let ages = [
+  {person: 1,age: 18},
+  {person: 2,age: 24},
+  {person: 3,age: 666}
+  ]
+  let locations = [
+  {person: 1,country: "Poland"},
+  {person: 3,country: "Poland"},
+  {person: 1,country: "USA"}
+  ]
+const result = of(persons).pipe(
+  mergeMap(personList => personList),
+  mergeMap(person => {
+    const personId = person.id;
+    const personAge = ages.find(age => age.person === personId)?.age || null;
+    const personLocation = locations.filter(x=>x.country == "Poland").find(location => location.person === personId)?.country || null;
+    return of({...person, age: personAge, country: personLocation});
+  }),
+  filter(person => !!person.age && !!person.country),
+  map(person => ({id: person.id, name: person.name, age: person.age, country: person.country}))
+);
+result.subscribe(person => console.log(person));
+of(result)
+  .pipe(
+    mergeMap((ageList) => ageList),
+    reduce((sum, age) => sum + age.age, 0),
+    mergeMap((sum) => from(result.pipe(count())).pipe(map((count) => sum / count)))
+  ).subscribe((av) => console.log(`Average age of persons from Poland: ${av}`));

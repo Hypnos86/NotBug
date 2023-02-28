@@ -1,0 +1,12 @@
+<div class="container mt-4">
+    <h4 class="text-center">{{carFromStorage.make}} - {{carFromStorage.model}} | rocznik: {{carFromStorage.year}}</h4>
+    <h5>Ostatni przegląd: {{carFromStorage.inspection_due|date:"d.MM.Y"}} r.</h5>
+    <div>
+        <ul class="list-grou">
+            <li class="list-group-item list-group-item-action" *ngFor="let par of partsFromStorage">
+                {{par.part}} - {{par.cost}} zł
+            </li>
+        </ul>
+    </div>
+<a [routerLink]="['/cars']" class="btn btn-dark">Cofni</a>
+</div>

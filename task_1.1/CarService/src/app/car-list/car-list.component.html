@@ -1,0 +1,11 @@
+<div class="my-3">
+    <button (click)="initialize()" class="btn btn-light">Inicjator LocalStorage</button>
+  </div>
+  <div class="container mt-5">
+    <h5 class="text-center">{{header}}</h5>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action" *ngFor="let car of carsFromStorage">
+        <a [routerLink]="['/car', car['id']]">{{car["make"]}} | rocznik {{car["year"]}}</a> 
+      </li>
+    </ul>
+  </div>
